@@ -2,11 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-    <!-- Google verification -->
-  <meta name="google-site-verification" content="google14c697a971538e43">
-  
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Astrion Design — Sci-Fi Premium Portfolio</title>
+   <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3D24D42SV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X3D24D42SV');
+  </script>
+
   <meta name="description" content="Astrion Design — futuristic graphic & web design. Branding, UI, web development." />
   <meta name="description" content="Astrion Design — Futuristic UI/UX and Graphic Designer in Guinea. Professional web, branding, and design services for startups and businesses.">
 <meta name="keywords" content="UI designer Guinea, Web designer Conakry, Graphic design Guinea, Branding, Portfolio, Frontend developer, Web UI design">
@@ -448,19 +454,22 @@
 
   <!-- ---------- Scripts: particles, reveal, mobile menu, form ---------- -->
 <!-- Google Analytics -->
+<!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=WAiSHbMRSC6Gr3epIJNAMg"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-  gtag('config', 'YOUR_GA_ID'); // replace YOUR_GA_ID with your actual GA ID
+  gtag('config', 'WAiSHbMRSC6Gr3epIJNAMg');
 </script>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  const $ = s => document.querySelector(s);
+  const $$ = s => document.querySelectorAll(s);
 
   /* ---------- Canvas Particles ---------- */
-  const canvas = document.getElementById('bg-canvas');
+  const canvas = $('#bg-canvas');
   if(canvas){
     const ctx = canvas.getContext('2d');
     let w = canvas.width = window.innerWidth;
@@ -468,37 +477,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const particles = [];
     const COUNT = Math.round((w*h)/90000);
 
-    function rand(min,max){ return Math.random()*(max-min)+min }
+    const rand = (min,max) => Math.random()*(max-min)+min;
 
-    function initParticles(){
+    const initParticles = () => {
       particles.length = 0;
       for(let i=0;i<COUNT;i++){
         particles.push({
-          x: Math.random()*w,
-          y: Math.random()*h,
-          r: rand(0.4,1.6),
-          vx: rand(-0.15,0.15),
-          vy: rand(-0.05,0.05),
-          phase: Math.random()*Math.PI*2
+          x: rand(0,w), y: rand(0,h), r: rand(0.4,1.6),
+          vx: rand(-0.15,0.15), vy: rand(-0.05,0.05),
+          phase: rand(0,Math.PI*2)
         });
       }
     }
 
-    function drawParticles(){
+    const drawParticles = () => {
       ctx.clearRect(0,0,w,h);
       for(const p of particles){
-        p.x += p.vx;
-        p.y += p.vy;
-        p.phase += 0.002;
+        p.x += p.vx; p.y += p.vy; p.phase += 0.002;
         const alpha = 0.12 + 0.08*Math.sin(p.phase);
-        ctx.beginPath();
         const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*18);
-        grad.addColorStop(0, 'rgba(130,70,255,'+ alpha +')');
+        grad.addColorStop(0, `rgba(130,70,255,${alpha})`);
         grad.addColorStop(1, 'rgba(130,70,255,0)');
         ctx.fillStyle = grad;
+        ctx.beginPath();
         ctx.arc(p.x,p.y,p.r*8,0,Math.PI*2);
         ctx.fill();
-
         if(p.x < -50) p.x = w+50;
         if(p.x > w+50) p.x = -50;
         if(p.y < -50) p.y = h+50;
@@ -507,7 +510,7 @@ document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(drawParticles);
     }
 
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', ()=>{
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
       initParticles();
@@ -518,15 +521,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------- Mobile Menu ---------- */
-  const mobileBtn = document.getElementById('mobileBtn');
+  const mobileBtn = $('#mobileBtn');
   if(mobileBtn){
     let menuOpen = false;
     const menu = document.createElement('div');
     menu.id = 'mobileMenu';
     menu.style.cssText = `
-      position: fixed; top: -100%; left:16px; right:16px; 
-      background: rgba(7,7,10,0.96); border-radius:12px; 
-      padding:18px; border:1px solid rgba(255,255,255,0.03); 
+      position: fixed; top: -100%; left:16px; right:16px;
+      background: rgba(7,7,10,0.96); border-radius:12px;
+      padding:18px; border:1px solid rgba(255,255,255,0.03);
       z-index:9999; backdrop-filter:blur(6px); transition: top 0.35s ease;`;
     menu.innerHTML = `
       <a href="#work">Work</a>
@@ -537,63 +540,68 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(menu);
     const links = menu.querySelectorAll('a');
 
-    mobileBtn.addEventListener('click', () => {
+    const closeMenu = () => {
+      menuOpen=false;
+      menu.style.top='-100%';
+      links.forEach(l=>{ l.style.opacity='0'; l.style.transform='translateY(-10px)'; });
+    }
+
+    mobileBtn.addEventListener('click', ()=>{
       menuOpen = !menuOpen;
       menu.style.top = menuOpen ? '72px' : '-100%';
-      links.forEach((l,i)=> setTimeout(()=> {
+      links.forEach((l,i)=> setTimeout(()=>{
         l.style.opacity = menuOpen ? '1':'0';
         l.style.transform = menuOpen ? 'translateY(0)':'translateY(-10px)';
       }, i*70));
     });
 
     document.addEventListener('click', e=>{
-      if(menuOpen && !menu.contains(e.target) && e.target !== mobileBtn){
-        menuOpen=false;
-        menu.style.top='-100%';
-        links.forEach(l=>{ l.style.opacity='0'; l.style.transform='translateY(-10px)'; });
-      }
+      if(menuOpen && !menu.contains(e.target) && e.target!==mobileBtn) closeMenu();
     });
-    links.forEach(l=> l.addEventListener('click', ()=>{
-      menuOpen=false; menu.style.top='-100%';
-      links.forEach(l=>{ l.style.opacity='0'; l.style.transform='translateY(-10px)'; });
-    }));
+
+    links.forEach(l=>{
+      l.addEventListener('click', closeMenu);
+    });
   }
 
   /* ---------- Reveal Animations ---------- */
   const observer = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
-      if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target);}
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
     });
   }, {threshold:0.12});
-  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  $$('.reveal').forEach(el=>observer.observe(el));
 
-  /* ---------- Smooth scroll ---------- */
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  /* ---------- Smooth Scroll ---------- */
+  $$('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', e=>{
-      const target = document.querySelector(a.getAttribute('href'));
+      const target = $(a.getAttribute('href'));
       if(target){
         e.preventDefault();
         target.scrollIntoView({behavior:'smooth', block:'start'});
-        const mm = document.getElementById('mobileMenu'); if(mm) mm.style.top='-100%';
+        const mm = $('#mobileMenu'); if(mm) mm.style.top='-100%';
       }
     });
   });
 
   /* ---------- Contact Form WhatsApp ---------- */
-  const form = document.getElementById('contactForm');
+  const form = $('#contactForm');
   if(form){
     form.addEventListener('submit', e=>{
       e.preventDefault();
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
+      const name = $('#name').value;
+      const email = $('#email').value;
+      const message = $('#message').value;
       const phone = '224620051118';
       const text = `Name: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AMessage: ${encodeURIComponent(message)}`;
       window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     });
   }
 
-  /* ---------- Language content ---------- */
+  /* ---------- Language Content ---------- */
   const content = {
     en: {
       eyebrow: "FUTURISTIC BRANDING & WEB",
@@ -643,14 +651,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const texts = content[lang];
 
   // Hero
-  document.querySelector('.eyebrow').textContent = texts.eyebrow;
-  document.querySelector('.hero h1').textContent = texts.heroTitle;
-  document.querySelector('.lead').textContent = texts.heroLead;
-  document.querySelector('.hero-actions .cta').textContent = texts.hireMe;
-  document.querySelector('.hero-actions .cta.secondary').textContent = texts.viewPortfolio;
+  $('.eyebrow').textContent = texts.eyebrow;
+  $('.hero h1').textContent = texts.heroTitle;
+  $('.lead').textContent = texts.heroLead;
+  $('.hero-actions .cta').textContent = texts.hireMe;
+  $('.hero-actions .cta.secondary').textContent = texts.viewPortfolio;
 
   // Services
-  const services = document.querySelectorAll('.services .service');
+  const services = $$('.services .service');
   services[0].querySelector('h4').textContent = texts.service1Title;
   services[0].querySelector('p').textContent = texts.service1Desc;
   services[1].querySelector('h4').textContent = texts.service2Title;
@@ -659,19 +667,20 @@ document.addEventListener("DOMContentLoaded", () => {
   services[2].querySelector('p').textContent = texts.service3Desc;
 
   // Sections
-  document.querySelector('#services .section-title').textContent = texts.servicesTitle;
-  document.querySelector('#work .section-title').textContent = texts.workTitle;
-  document.querySelector('#about .section-title').textContent = texts.aboutTitle;
-  document.querySelector('#about p').textContent = texts.aboutDesc;
-  document.querySelector('#contact .section-title').textContent = texts.contactTitle;
+  $('#services .section-title').textContent = texts.servicesTitle;
+  $('#work .section-title').textContent = texts.workTitle;
+  $('#about .section-title').textContent = texts.aboutTitle;
+  $('#about p').textContent = texts.aboutDesc;
+  $('#contact .section-title').textContent = texts.contactTitle;
 
   // Contact placeholders
-  document.getElementById('name').placeholder = lang==='fr'?'Votre nom':'Your name';
-  document.getElementById('email').placeholder = lang==='fr'?'Votre email':'Your email';
-  document.getElementById('message').placeholder = lang==='fr'?'Votre message':'Your message';
-  document.querySelector('#contactForm button').textContent = texts.sendMessage;
-  document.querySelector('#contact p:nth-of-type(1)').innerHTML = `${texts.emailLabel}: <strong>astriondesign@gmail.com</strong>`;
-  document.querySelector('#contact p:nth-of-type(2)').innerHTML = `${texts.whatsappLabel}: <strong>+224620051118</strong>`;
+  $('#name').placeholder = lang==='fr'?'Votre nom':'Your name';
+  $('#email').placeholder = lang==='fr'?'Votre email':'Your email';
+  $('#message').placeholder = lang==='fr'?'Votre message':'Your message';
+  $('#contactForm button').textContent = texts.sendMessage;
+  $('#contact p:nth-of-type(1)').innerHTML = `${texts.emailLabel}: <strong>astriondesign@gmail.com</strong>`;
+  $('#contact p:nth-of-type(2)').innerHTML = `${texts.whatsappLabel}: <strong>+224620051118</strong>`;
+
 });
 </script>
 </body>

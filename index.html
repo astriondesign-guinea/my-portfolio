@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Astrion Design — Sci-Fi Premium Portfolio</title>
+  <meta name="description" content="Astrion Design — futuristic graphic & web design. Branding, UI, web development." />
+  <meta name="description" content="Astrion Design — Futuristic UI/UX and Graphic Designer in Guinea. Professional web, branding, and design services for startups and businesses.">
+<meta name="keywords" content="UI designer Guinea, Web designer Conakry, Graphic design Guinea, Branding, Portfolio, Frontend developer, Web UI design">
+
+<!-- Open Graph / Social preview -->
+<meta property="og:title" content="Astrion Design — Futuristic UI/UX & Web Design">
+<meta property="og:description" content="Professional portfolio of Astrion Design. High-performance websites, branding, and UI/UX design services in Guinea.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourdomain.com">
+<meta property="og:image" content="https://yourdomain.com/preview-image.png">
+<meta property="og:site_name" content="Astrion Design">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Astrion Design — Futuristic UI/UX & Web Design">
+<meta name="twitter:description" content="Professional portfolio of Astrion Design. High-performance websites, branding, and UI/UX design services in Guinea.">
+<meta name="twitter:image" content="https://yourdomain.com/preview-image.png">
+
+  <!-- Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --purple:#8246FF;
+      --purple-2:#6f3bff;
+      --bg-900:#020106;
+      --panel:#0b0b10;
+      --silver:#C9C9CE;
+      --glass: rgba(255,255,255,0.04);
+      --glow: rgba(130,70,255,0.14);
+      --container:1100px;
+      --radius:12px;
+      --trans: 320ms cubic-bezier(.2,.9,.25,1);
+      --max-width:1100px;
+    }
+
+    /* ---------- Reset ---------- */
+    *{box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      color:#E8E8EE;
+      background:
+        radial-gradient(800px 600px at 12% 18%, rgba(100,24,146,0.10), transparent 10%),
+        radial-gradient(800px 600px at 92% 82%, rgba(56,0,120,0.08), transparent 10%),
+        linear-gradient(180deg, var(--bg-900) 0%, #02010a 100%);
+      overflow-x:hidden;
+      -webkit-text-size-adjust:100%;
+      line-height:1.45;
+    }
+
+    a{color:var(--purple); text-decoration:none;}
+    img{display:block; max-width:100%; height:auto;}
+
+    .container{
+      width: calc(100% - 40px);
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ---------- Particle canvas layer & grid ---------- */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .grid-overlay{
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background-image: radial-gradient(circle at 10% 10%, rgba(130,70,255,0.02), transparent 6%),
+                        linear-gradient(0deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 60%, rgba(0,0,0,0.0) 100%);
+      pointer-events:none;
+    }
+
+    /* ---------- Header / nav ---------- */
+    header.site-header{
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(10px) saturate(120%);
+      background: linear-gradient(180deg, rgba(10,8,16,0.6), rgba(10,8,16,0.2));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 6px 30px rgba(2,0,20,0.6);
+    }
+    .nav-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+    }
+
+    .brand{display:flex;align-items:center;gap:12px;z-index:50}
+    .brand svg{width:48px;height:48px;flex:0 0 48px;filter:drop-shadow(0 10px 30px rgba(130,70,255,0.08));}
+    .brand .title{font-weight:800;letter-spacing:1px;color:var(--silver);font-size:16px}
+    .brand .sub{font-size:11px;color:rgba(255,255,255,0.55);margin-top:2px}
+
+    nav.primary{
+      display:flex;gap:20px;align-items:center;
+    }
+    nav.primary a{
+      color:rgba(255,255,255,0.78);
+      font-weight:600;
+      font-size:14px;
+      padding:8px 10px;border-radius:8px;transition:var(--trans);
+    }
+    nav.primary a:hover{color:var(--purple); transform:translateY(-3px); text-decoration:none;}
+
+    .cta{
+      display:inline-flex;align-items:center;gap:10px;
+      background: linear-gradient(90deg,var(--purple),var(--purple-2) 70%);
+      color:#fff;padding:10px 14px;border-radius:12px;font-weight:700;
+      box-shadow: 0 12px 40px rgba(104,45,255,0.12), 0 1px 0 rgba(255,255,255,0.02) inset;
+      border:none;cursor:pointer;font-size:14px;
+    }
+    .cta.secondary{
+      background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--silver);box-shadow:none;
+    }
+
+    .mobile-toggle {
+  display: flex;
+  width: 32px;        /* touch-friendly but not oversized */
+  height: 32px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  color: var(--silver);
+  padding: 0;
+}
+
+    /* ---------- Hero ---------- */
+    .hero{
+      position:relative;
+      padding:72px 0 40px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:center;
+      z-index:10;
+    }
+    .eyebrow{font-weight:600;color:var(--purple);text-transform:uppercase;letter-spacing:1.6px;font-size:12px}
+    .hero h1{
+      font-size: clamp(30px, 6vw, 48px);
+      margin:12px 0 10px;
+      line-height:1.02;
+      letter-spacing:-0.6px;
+      font-weight:800;
+      color:#F7F6FB;
+      text-shadow: 0 6px 30px rgba(130,70,255,0.06);
+    }
+    .lead{color:rgba(230,230,235,0.85);font-weight:400;max-width:46ch}
+
+    .hero-actions{margin-top:18px;display:flex;gap:14px;align-items:center}
+
+    /* Right panel */
+    .hero-panel{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 20px 60px rgba(2,0,20,0.6);
+      backdrop-filter: blur(8px);
+    }
+    .stat{display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;background:linear-gradient(90deg, rgba(130,70,255,0.02), transparent);transition:var(--trans)}
+    .stat .big{font-weight:800;font-size:20px;color:#fff}
+    .stat .muted{color:rgba(255,255,255,0.7);font-size:13px}
+
+    /* ---------- Projects ---------- */
+    .projects{margin-top:36px; display:grid; grid-template-columns: repeat(3, 1fr); gap:18px;}
+    .project{
+      position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      transition: transform 420ms cubic-bezier(.2,.9,.25,1), box-shadow 420ms;
+      will-change: transform;
+      backdrop-filter: blur(6px);
+    }
+    .project .thumb{height:160px; object-fit:cover; width:100%; display:block; background:linear-gradient(120deg, rgba(130,70,255,0.04), transparent);}
+    .project .meta{padding:12px;display:flex;justify-content:space-between;align-items:center}
+    .project:hover{transform:translateY(-10px);box-shadow: 0 30px 80px rgba(2,0,20,0.6)}
+    .project::after{content:"";position:absolute;inset:0;box-shadow: inset 0 0 0 2px transparent;transition:box-shadow 420ms}
+    .project:hover::after{box-shadow: inset 0 0 40px var(--glow)}
+
+    /* ---------- Services ---------- */
+    .services{margin:64px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .service{padding:24px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);background:rgba(255,255,255,0.02);backdrop-filter: blur(8px);transition:var(--trans)}
+    .service h4{margin:0 0 8px;font-weight:700}
+    .service p{margin:0;color:rgba(255,255,255,0.75)}
+    .service:hover{transform:translateY(-6px);box-shadow:0 18px 50px rgba(100,40,255,0.08)}
+
+    /* ---------- Case / About / Contact ---------- */
+    .case{display:grid;grid-template-columns:1fr 420px;gap:18px;padding:18px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);background:rgba(255,255,255,0.01);backdrop-filter: blur(6px)}
+    .about-wrap{display:grid;grid-template-columns:1fr 350px;gap:20px;align-items:start}
+    .contact{display:grid;grid-template-columns:1fr 420px;gap:20px;padding:24px;border-radius:14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px)}
+    .contact input,.contact textarea{width:100%;padding:12px 14px;border-radius:10px;background:#050507;border:1px solid rgba(255,255,255,0.04);color:#fff;outline:none}
+
+    /* ---------- Section title with holo line ---------- */
+    .section-title{display:inline-block;font-size:20px;font-weight:800;position:relative;margin-bottom:22px}
+    .section-title::after{content:"";position:absolute;left:0;bottom:-10px;width:60%;height:4px;border-radius:3px;background: linear-gradient(90deg,var(--purple),transparent);box-shadow:0 6px 24px rgba(130,70,255,0.06)}
+
+    /* ---------- Reveal / motion ---------- */
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.9,.25,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* ---------- Footer ---------- */
+    footer{padding:28px 0;margin-top:40px;border-top:1px solid rgba(255,255,255,0.03);color:rgba(255,255,255,0.65)}
+
+    /* ---------- Mobile responsive ---------- */
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr}
+      .case{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+      .about-wrap{grid-template-columns:1fr}
+      .projects{grid-template-columns:repeat(2,1fr)}
+      nav.primary{display:none}
+      .mobile-toggle{display:flex}
+    }
+    @media (max-width:700px){
+      .projects{grid-template-columns:1fr}
+      .services{grid-template-columns:1fr}
+      .hero-actions{flex-direction:column;gap:10px}
+      .hero h1{font-size:28px}
+      .hero {
+    grid-template-columns: 1fr !important;
+    padding-top: 40px;
+  }
+}
+      .hero-panel{display:none} /* compress hero on small screens */
+      .brand .title{font-size:15px}
+      .container{width:94%}
+      .service, .project{padding:14px}
+    }
+
+    /* small accessibility focus */
+    a:focus, button:focus, input:focus, textarea:focus {outline: 3px solid rgba(130,70,255,0.12); outline-offset: 2px}
+  </style>
+</head>
+<body>
+
+  <!-- canvas particles & subtle grid -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="container nav-wrap">
+      <div class="brand" aria-hidden="false">
+        <!-- inline SVG logo -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Astrion Design logo">
+          <defs>
+            <linearGradient id="gA" x1="0" x2="1">
+              <stop offset="0" stop-color="#9a63ff"/>
+              <stop offset="1" stop-color="#6f3bff"/>
+            </linearGradient>
+          </defs>
+          <rect width="100" height="100" rx="18" fill="transparent"/>
+          <g transform="translate(10,8)">
+            <path d="M38 6 L66 64 L50 64 L34 26 L18 64 L2 64 Z" fill="url(#gA)"/>
+            <path d="M74 30 C62 6, 18 6, 10 32" stroke="#8246FF" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <circle cx="73" cy="28" r="4.2" fill="#8246FF"/>
+          </g>
+        </svg>
+
+        <div>
+          <div class="title">ASTRION</div>
+          <div class="sub">Design</div>
+        </div>
+      </div>
+
+      <nav class="primary" aria-label="Primary navigation">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="cta" href="#contact">Hire Me</a>
+      </nav>
+
+<button class="mobile-toggle" id="mobileBtn">
+  <svg width="16" height="16" viewBox="0 0 20 20" stroke="currentColor" fill="none">
+    <line x1="3" y1="5" x2="17" y2="5" stroke-width="2" stroke-linecap="round"/>
+    <line x1="3" y1="10" x2="17" y2="10" stroke-width="2" stroke-linecap="round"/>
+    <line x1="3" y1="15" x2="17" y2="15" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</button>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="container" role="main">
+    <!-- HERO -->
+    <section class="hero reveal" id="home">
+      <div>
+        <div class="eyebrow">FUTURISTIC BRANDING & WEB</div>
+        <h1>Designing the Future — One Pixel at a Time.</h1>
+        <p class="lead">I craft high-conversion websites and memorable visual identities for startups and ambitious brands. Clean structure. Bold execution. Fast turnaround.</p>
+
+        <div class="hero-actions">
+          <a class="cta" href="#contact">Hire Me</a>
+          <a class="cta secondary" href="#work">View Portfolio</a>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:28px;">
+          <div style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:rgba(255,255,255,0.01);backdrop-filter: blur(6px);">
+            <strong style="display:block;color:#fff;font-size:16px;">UI & Web</strong>
+            <small style="color:rgba(255,255,255,0.65)">High performance interfaces</small>
+          </div>
+          <div style="padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:rgba(255,255,255,0.01);backdrop-filter: blur(6px);">
+            <strong style="display:block;color:#fff;font-size:16px;">Branding</strong>
+            <small style="color:rgba(255,255,255,0.65)">Identity & systems</small>
+          </div>
+        </div>
+
+        <!-- projects preview -->
+        <div class="projects" aria-hidden="false" style="margin-top:32px;">
+          <article class="project reveal">
+            <img class="thumb" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='480'><rect fill='%23080a0f' width='100%' height='100%'/><text x='50%' y='50%' font-family='Poppins' font-size='22' fill='%238246FF' text-anchor='middle'>Project Screenshot</text></svg>" alt="Project 1 thumbnail">
+            <div class="meta">
+              <div><h3 style="margin:0;font-size:16px">Helios App UI</h3><p style="margin:0;color:rgba(255,255,255,0.65);font-size:13px">Web UI for fintech onboarding</p></div>
+              <div style="text-align:right;color:var(--silver);font-size:12px">Figma / Webflow</div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <img class="thumb" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='480'><rect fill='%23080a0f' width='100%' height='100%'/><text x='50%' y='50%' font-family='Poppins' font-size='22' fill='%238246FF' text-anchor='middle'>Project Screenshot</text></svg>" alt="Project 2 thumbnail">
+            <div class="meta">
+              <div><h3 style="margin:0;font-size:16px">Orbit Brand</h3><p style="margin:0;color:rgba(255,255,255,0.65);font-size:13px">Full identity for consumer tech</p></div>
+              <div style="text-align:right;color:var(--silver);font-size:12px">Illustrator / PS</div>
+            </div>
+          </article>
+
+          <article class="project reveal">
+            <img class="thumb" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='480'><rect fill='%23080a0f' width='100%' height='100%'/><text x='50%' y='50%' font-family='Poppins' font-size='22' fill='%238246FF' text-anchor='middle'>Project Screenshot</text></svg>" alt="Project 3 thumbnail">
+            <div class="meta">
+              <div><h3 style="margin:0;font-size:16px">Nova Landing</h3><p style="margin:0;color:rgba(255,255,255,0.65);font-size:13px">Conversion-led landing page</p></div>
+              <div style="text-align:right;color:var(--silver);font-size:12px">HTML/CSS</div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="hero-panel reveal" aria-hidden="false">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="stat"><div style="flex:1"><div class="big">3–4 days</div><div class="muted">Typical landing page turnaround</div></div></div>
+          <div class="stat"><div style="flex:1"><div class="big">+150%</div><div class="muted">Avg. conversion lift</div></div></div>
+          <div class="stat" style="margin-top:auto"><div style="flex:1"><div class="big">Tools</div><div class="muted">Figma • Webflow • Poppins • Illustrator</div></div></div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="reveal" style="margin-top:34px">
+      <h2 class="section-title">Services</h2>
+      <div class="services">
+        <div class="service reveal"><h4>Brand Identity</h4><p>Logo systems, color palettes, typography, and brand guidelines that scale across product and marketing.</p></div>
+        <div class="service reveal"><h4>Web Design</h4><p>Conversion-focused landing pages, marketing sites, and interactive prototypes using modern front-end practices.</p></div>
+        <div class="service reveal"><h4>Graphic & Motion</h4><p>Social assets, banners, and micro-interactions that keep your visual language consistent.</p></div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="work" class="reveal" style="margin-top:40px">
+      <div style="display:flex;justify-content:space-between;align-items:end;">
+        <h2 class="section-title" style="margin:0">Selected Work</h2>
+        <a href="#work" style="color:var(--silver);font-weight:600">View all projects →</a>
+      </div>
+
+      <div class="case-list" style="margin-top:18px">
+        <article class="case reveal">
+          <div><img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='700'><rect fill='%230b0b10' width='100%' height='100%'/><text x='50%' y='50%' font-family='Poppins' font-size='28' fill='%238246FF' text-anchor='middle'>Case Study Preview</text></svg>" alt="case" style="border-radius:10px;width:100%;height:auto"></div>
+          <div>
+            <h3 id="case1">Helios — Fintech Onboarding</h3>
+            <p style="color:rgba(255,255,255,0.75)">Problem: Complex onboarding flow causing drop-off. Solution: Rebuilt with simplified steps, trust signals, and micro-interactions. Result: +78% completion rate.</p>
+            <ul style="color:rgba(255,255,255,0.65);padding-left:16px;margin-top:12px;">
+              <li>Role: UI/UX, prototype, handoff</li>
+              <li>Tools: Figma, Webflow</li>
+            </ul>
+            <div style="margin-top:12px"><a class="cta" href="#contact">Start a project</a></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="reveal" style="margin-top:40px">
+      <div class="about-wrap">
+        <div>
+          <h2 class="section-title" style="margin-bottom:6px">About — Astrion Design</h2>
+          <p style="color:rgba(255,255,255,0.8)">Astrion Design builds futuristic, precise, and conversion-focused visual experiences. I blend brand thinking with pixel-level UI craft to help early-stage startups and growing businesses stand out.</p>
+          <h4 style="margin-top:18px">Core skills</h4>
+          <ul style="color:rgba(255,255,255,0.75)"><li>Web UI & Frontend implementation</li><li>Brand systems & identity</li><li>Prototyping & interaction design</li></ul>
+        </div>
+
+        <aside style="padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(130,70,255,0.03), transparent)">
+          <h4 style="margin:0 0 8px">Availability</h4>
+          <p style="margin:0 0 10px;color:rgba(255,255,255,0.8)">Accepting 1–2 new clients per month. Priority for projects with strategic product fit.</p>
+          <div style="display:flex;gap:8px"><a class="cta" href="#contact">Hire Me</a></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+   <!-- CONTACT -->
+<section id="contact" class="reveal" style="margin-top:40px">
+  <h2 class="section-title">Contact</h2>
+
+  <div class="contact">
+    <div>
+      <p style="margin:0 0 10px;color:rgba(255,255,255,0.8)">Email: <strong>astriondesign@gmail.com</strong></p>
+      <p style="margin:0 0 20px;color:rgba(255,255,255,0.8)">WhatsApp: <strong>+224620051118</strong></p>
+
+      <form id="contactForm">
+        <input id="name" type="text" placeholder="Your name" />
+        <input id="email" type="email" placeholder="Your email" />
+        <textarea id="message" placeholder="Your message" rows="5"></textarea>
+        <button class="cta" style="margin-top:12px">Send Message</button>
+      </form>
+    </div>
+
+    <div style="background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.03);padding:20px">
+      <h3 style="margin-top:0;color:#fff;font-size:18px">Let's build something great</h3>
+      <p style="color:rgba(255,255,255,0.7)">Available for branding, UI/UX design, and high-performance websites.</p>
+    </div>
+  </div>
+</section>
+
+    <!-- FOOTER -->
+    <footer class="container" role="contentinfo" style="margin-top:36px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <div style="color:rgba(255,255,255,0.75)">© <strong>Astrion Design</strong> — 2025</div>
+        <div style="color:rgba(255,255,255,0.6)">Made with precision. Built for scale.</div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ---------- Scripts: particles, reveal, mobile menu, form ---------- -->
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=WAiSHbMRSC6Gr3epIJNAMg"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'YOUR_GA_ID'); // replace YOUR_GA_ID with your actual GA ID
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* ---------- Canvas Particles ---------- */
+  const canvas = document.getElementById('bg-canvas');
+  if(canvas){
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    const particles = [];
+    const COUNT = Math.round((w*h)/90000);
+
+    function rand(min,max){ return Math.random()*(max-min)+min }
+
+    function initParticles(){
+      particles.length = 0;
+      for(let i=0;i<COUNT;i++){
+        particles.push({
+          x: Math.random()*w,
+          y: Math.random()*h,
+          r: rand(0.4,1.6),
+          vx: rand(-0.15,0.15),
+          vy: rand(-0.05,0.05),
+          phase: Math.random()*Math.PI*2
+        });
+      }
+    }
+
+    function drawParticles(){
+      ctx.clearRect(0,0,w,h);
+      for(const p of particles){
+        p.x += p.vx;
+        p.y += p.vy;
+        p.phase += 0.002;
+        const alpha = 0.12 + 0.08*Math.sin(p.phase);
+        ctx.beginPath();
+        const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*18);
+        grad.addColorStop(0, 'rgba(130,70,255,'+ alpha +')');
+        grad.addColorStop(1, 'rgba(130,70,255,0)');
+        ctx.fillStyle = grad;
+        ctx.arc(p.x,p.y,p.r*8,0,Math.PI*2);
+        ctx.fill();
+
+        if(p.x < -50) p.x = w+50;
+        if(p.x > w+50) p.x = -50;
+        if(p.y < -50) p.y = h+50;
+        if(p.y > h+50) p.y = -50;
+      }
+      requestAnimationFrame(drawParticles);
+    }
+
+    window.addEventListener('resize', () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      initParticles();
+    });
+
+    initParticles();
+    drawParticles();
+  }
+
+  /* ---------- Mobile Menu ---------- */
+  const mobileBtn = document.getElementById('mobileBtn');
+  if(mobileBtn){
+    let menuOpen = false;
+    const menu = document.createElement('div');
+    menu.id = 'mobileMenu';
+    menu.style.cssText = `
+      position: fixed; top: -100%; left:16px; right:16px; 
+      background: rgba(7,7,10,0.96); border-radius:12px; 
+      padding:18px; border:1px solid rgba(255,255,255,0.03); 
+      z-index:9999; backdrop-filter:blur(6px); transition: top 0.35s ease;`;
+    menu.innerHTML = `
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a class="cta" href="#contact">Hire Me</a>`;
+    document.body.appendChild(menu);
+    const links = menu.querySelectorAll('a');
+
+    mobileBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      menu.style.top = menuOpen ? '72px' : '-100%';
+      links.forEach((l,i)=> setTimeout(()=> {
+        l.style.opacity = menuOpen ? '1':'0';
+        l.style.transform = menuOpen ? 'translateY(0)':'translateY(-10px)';
+      }, i*70));
+    });
+
+    document.addEventListener('click', e=>{
+      if(menuOpen && !menu.contains(e.target) && e.target !== mobileBtn){
+        menuOpen=false;
+        menu.style.top='-100%';
+        links.forEach(l=>{ l.style.opacity='0'; l.style.transform='translateY(-10px)'; });
+      }
+    });
+    links.forEach(l=> l.addEventListener('click', ()=>{
+      menuOpen=false; menu.style.top='-100%';
+      links.forEach(l=>{ l.style.opacity='0'; l.style.transform='translateY(-10px)'; });
+    }));
+  }
+
+  /* ---------- Reveal Animations ---------- */
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); observer.unobserve(entry.target);}
+    });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  /* ---------- Smooth scroll ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', e=>{
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+        const mm = document.getElementById('mobileMenu'); if(mm) mm.style.top='-100%';
+      }
+    });
+  });
+
+  /* ---------- Contact Form WhatsApp ---------- */
+  const form = document.getElementById('contactForm');
+  if(form){
+    form.addEventListener('submit', e=>{
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      const phone = '224620051118';
+      const text = `Name: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AMessage: ${encodeURIComponent(message)}`;
+      window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+    });
+  }
+
+  /* ---------- Language content ---------- */
+  const content = {
+    en: {
+      eyebrow: "FUTURISTIC BRANDING & WEB",
+      heroTitle: "Designing the Future — One Pixel at a Time.",
+      heroLead: "I craft high-conversion websites and memorable visual identities for startups and ambitious brands.",
+      hireMe: "Hire Me",
+      viewPortfolio: "View Portfolio",
+      servicesTitle: "Services",
+      service1Title: "Brand Identity",
+      service1Desc: "Logo systems, color palettes, typography, and brand guidelines.",
+      service2Title: "Web Design",
+      service2Desc: "Conversion-focused landing pages and marketing sites.",
+      service3Title: "Graphic & Motion",
+      service3Desc: "Social assets, banners, and micro-interactions.",
+      workTitle: "Selected Work",
+      aboutTitle: "About — Astrion Design",
+      aboutDesc: "Astrion Design builds futuristic, precise, and conversion-focused visual experiences.",
+      contactTitle: "Contact",
+      emailLabel: "Email",
+      whatsappLabel: "WhatsApp",
+      sendMessage: "Send Message"
+    },
+    fr: {
+      eyebrow: "BRANDING ET WEB FUTURISTES",
+      heroTitle: "Concevoir le futur — un pixel à la fois.",
+      heroLead: "Je crée des sites web à haute conversion et des identités visuelles mémorables pour les startups et les marques ambitieuses.",
+      hireMe: "Engagez-moi",
+      viewPortfolio: "Voir le portfolio",
+      servicesTitle: "Services",
+      service1Title: "Identité de marque",
+      service1Desc: "Systèmes de logo, palettes de couleurs, typographie et guides de marque.",
+      service2Title: "Conception Web",
+      service2Desc: "Pages de destination et sites marketing axés sur la conversion.",
+      service3Title: "Graphisme & Motion",
+      service3Desc: "Supports sociaux, bannières et micro-interactions.",
+      workTitle: "Projets Sélectionnés",
+      aboutTitle: "À propos — Astrion Design",
+      aboutDesc: "Astrion Design crée des expériences visuelles futuristes, précises et orientées conversion.",
+      contactTitle: "Contact",
+      emailLabel: "Email",
+      whatsappLabel: "WhatsApp",
+      sendMessage: "Envoyer"
+    }
+  };
+
+  const lang = navigator.language.startsWith('fr')?'fr':'en';
+  const texts = content[lang];
+
+  // Hero
+  document.querySelector('.eyebrow').textContent = texts.eyebrow;
+  document.querySelector('.hero h1').textContent = texts.heroTitle;
+  document.querySelector('.lead').textContent = texts.heroLead;
+  document.querySelector('.hero-actions .cta').textContent = texts.hireMe;
+  document.querySelector('.hero-actions .cta.secondary').textContent = texts.viewPortfolio;
+
+  // Services
+  const services = document.querySelectorAll('.services .service');
+  services[0].querySelector('h4').textContent = texts.service1Title;
+  services[0].querySelector('p').textContent = texts.service1Desc;
+  services[1].querySelector('h4').textContent = texts.service2Title;
+  services[1].querySelector('p').textContent = texts.service2Desc;
+  services[2].querySelector('h4').textContent = texts.service3Title;
+  services[2].querySelector('p').textContent = texts.service3Desc;
+
+  // Sections
+  document.querySelector('#services .section-title').textContent = texts.servicesTitle;
+  document.querySelector('#work .section-title').textContent = texts.workTitle;
+  document.querySelector('#about .section-title').textContent = texts.aboutTitle;
+  document.querySelector('#about p').textContent = texts.aboutDesc;
+  document.querySelector('#contact .section-title').textContent = texts.contactTitle;
+
+  // Contact placeholders
+  document.getElementById('name').placeholder = lang==='fr'?'Votre nom':'Your name';
+  document.getElementById('email').placeholder = lang==='fr'?'Votre email':'Your email';
+  document.getElementById('message').placeholder = lang==='fr'?'Votre message':'Your message';
+  document.querySelector('#contactForm button').textContent = texts.sendMessage;
+  document.querySelector('#contact p:nth-of-type(1)').innerHTML = `${texts.emailLabel}: <strong>astriondesign@gmail.com</strong>`;
+  document.querySelector('#contact p:nth-of-type(2)').innerHTML = `${texts.whatsappLabel}: <strong>+224620051118</strong>`;
+});
+</script>
+</body>
+</html>
